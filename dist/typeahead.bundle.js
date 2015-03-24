@@ -1479,7 +1479,8 @@
                 return this.$input.val();
             },
             setInputValue: function setInputValue(value) {
-                this.$input.val(value);
+                if (value != this.$input.val())
+                    this.$input.val(value);
                 this.clearHintIfInvalid();
                 this._checkLanguageDirection();
             },
@@ -1720,8 +1721,10 @@
                     suggestions = suggestions || [];
                     if (!canceled && rendered < that.limit) {
                         that.cancel = $.noop;
-                        rendered += suggestions.length;
-                        that._append(query, suggestions.slice(0, that.limit - rendered));
+                        var addable = that.limit - rendered;
+                        var added = Math.min(addable, suggestions.length);
+                        that._append(query, suggestions.slice(0, added));
+                        rendered += added;
                         that.async && that.trigger("asyncReceived", query);
                     }
                 }
