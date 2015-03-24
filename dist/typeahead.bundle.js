@@ -1074,7 +1074,8 @@
                 return this.$input.val();
             },
             setInputValue: function setInputValue(value, silent) {
-                this.$input.val(value);
+                if (value != this.$input.val())
+                    this.$input.val(value);
                 silent ? this.clearHint() : this._checkInputValue();
             },
             resetInputValue: function resetInputValue() {
