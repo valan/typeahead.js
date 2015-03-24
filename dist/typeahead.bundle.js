@@ -1479,7 +1479,8 @@
                 return this.$input.val();
             },
             setInputValue: function setInputValue(value) {
-                this.$input.val(value);
+                if (value != this.$input.val())
+                    this.$input.val(value);
                 this.clearHintIfInvalid();
                 this._checkLanguageDirection();
             },
